@@ -1,0 +1,10 @@
+C:\Users\juanr\OneDrive\Escritorio\ATMSimulator\ATMSimulator_1\ATMSimulator_1\bin\Debug\ATMSimulator_1.exe.config
+C:\Users\juanr\OneDrive\Escritorio\ATMSimulator\ATMSimulator_1\ATMSimulator_1\bin\Debug\ATMSimulator_1.exe
+C:\Users\juanr\OneDrive\Escritorio\ATMSimulator\ATMSimulator_1\ATMSimulator_1\bin\Debug\ATMSimulator_1.pdb
+C:\Users\juanr\OneDrive\Escritorio\ATMSimulator\ATMSimulator_1\ATMSimulator_1\obj\Debug\ATMSimulator_1.csproj.AssemblyReference.cache
+C:\Users\juanr\OneDrive\Escritorio\ATMSimulator\ATMSimulator_1\ATMSimulator_1\obj\Debug\ATMSimulator_1.Form1.resources
+C:\Users\juanr\OneDrive\Escritorio\ATMSimulator\ATMSimulator_1\ATMSimulator_1\obj\Debug\ATMSimulator_1.Properties.Resources.resources
+C:\Users\juanr\OneDrive\Escritorio\ATMSimulator\ATMSimulator_1\ATMSimulator_1\obj\Debug\ATMSimulator_1.csproj.GenerateResource.cache
+C:\Users\juanr\OneDrive\Escritorio\ATMSimulator\ATMSimulator_1\ATMSimulator_1\obj\Debug\ATMSimulator_1.csproj.CoreCompileInputs.cache
+C:\Users\juanr\OneDrive\Escritorio\ATMSimulator\ATMSimulator_1\ATMSimulator_1\obj\Debug\ATMSimulator_1.exe
+C:\Users\juanr\OneDrive\Escritorio\ATMSimulator\ATMSimulator_1\ATMSimulator_1\obj\Debug\ATMSimulator_1.pdb

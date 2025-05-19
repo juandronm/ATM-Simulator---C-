@@ -13,7 +13,7 @@ using System.IO;
 
 namespace ATMSimulator_1
 {
-    public partial class CultureBank : Form // Assuming your form is named CultureBank
+    public partial class CultureBank : Form 
     {
         OleDbConnection conn;
         private string currentAccount = "";
@@ -31,15 +31,6 @@ namespace ATMSimulator_1
 
 
         private TextBox currentInputBox = null;
-
-
-        // --- UI Elements (Assumed names - ensure they match your Designer.cs) ---
-        // You'll need to add these in your Form Designer:
-        // TextBox textBoxWithdrawAmount;
-        // Label labelWithdrawAmount;
-        // ListBox listBoxHistory;
-        // Button buttonLogout;
-        // Button buttonWithdraw; // Make sure this exists
 
 
         public CultureBank()
@@ -61,7 +52,7 @@ namespace ATMSimulator_1
                 Application.Exit();
                 return;
             }
-            string dbPath = Path.Combine(projectRoot, "Database", "bankaccounts.accdb"); // Assuming DB is in ProjectRoot/Database/
+            string dbPath = Path.Combine(projectRoot, "Database", "bankaccounts.accdb");
 
 
             if (!File.Exists(dbPath))
@@ -77,7 +68,7 @@ namespace ATMSimulator_1
             try
             {
                 conn.Open();
-                // MessageBox.Show("✅ Connection successful!"); // Optional: good for debugging
+                // MessageBox.Show("✅ Connection successful!"); 
             }
             catch (Exception ex)
             {
@@ -93,14 +84,13 @@ namespace ATMSimulator_1
 
         private void SetupInputHandlers()
         {
-            // Assuming these textboxes exist from your original code
             textBox1.KeyPress += SuppressTyping; // Account Number input
             textBoxUsername.KeyPress += SuppressTyping; // New user account
             textBoxPassword.KeyPress += SuppressTyping; // Password input
             textBoxTransferAmount.KeyPress += SuppressTyping;
             textBoxReceiverAccount.KeyPress += SuppressTyping;
             textBoxDeposit.KeyPress += SuppressTyping;
-            textBoxWithdrawAmount.KeyPress += SuppressTyping; // New TextBox for withdrawal
+            textBoxWithdrawAmount.KeyPress += SuppressTyping; 
 
 
             textBox1.KeyDown += AllowBackspace;
@@ -109,7 +99,7 @@ namespace ATMSimulator_1
             textBoxTransferAmount.KeyDown += AllowBackspace;
             textBoxReceiverAccount.KeyDown += AllowBackspace;
             textBoxDeposit.KeyDown += AllowBackspace;
-            textBoxWithdrawAmount.KeyDown += AllowBackspace; // New TextBox for withdrawal
+            textBoxWithdrawAmount.KeyDown += AllowBackspace; 
 
 
             textBox1.Enter += (s, e) => currentInputBox = textBox1;
@@ -118,10 +108,10 @@ namespace ATMSimulator_1
             textBoxTransferAmount.Enter += (s, e) => currentInputBox = textBoxTransferAmount;
             textBoxReceiverAccount.Enter += (s, e) => currentInputBox = textBoxReceiverAccount;
             textBoxDeposit.Enter += (s, e) => currentInputBox = textBoxDeposit;
-            textBoxWithdrawAmount.Enter += (s, e) => currentInputBox = textBoxWithdrawAmount; // New
+            textBoxWithdrawAmount.Enter += (s, e) => currentInputBox = textBoxWithdrawAmount; 
 
 
-            this.KeyPreview = true; // Important for Form_KeyDown to catch numpad keys
+            this.KeyPreview = true; 
             this.KeyDown += Form1_KeyDown;
         }
 
@@ -132,7 +122,7 @@ namespace ATMSimulator_1
             {
                 currentInputBox.Text = currentInputBox.Text.Substring(0, currentInputBox.Text.Length - 1);
                 currentInputBox.SelectionStart = currentInputBox.Text.Length;
-                e.SuppressKeyPress = true; // Suppress the key press so it doesn't also trigger other handlers
+                e.SuppressKeyPress = true; 
             }
         }
         private void SuppressTyping(object sender, KeyPressEventArgs e)
@@ -143,7 +133,7 @@ namespace ATMSimulator_1
                 e.Handled = false;
                 return;
             }
-            e.Handled = true; // Suppress all other direct typing
+            e.Handled = true; 
         }
 
 
@@ -154,7 +144,7 @@ namespace ATMSimulator_1
 
 
             currentInputBox.Text += btn.Text;
-            currentInputBox.SelectionStart = currentInputBox.Text.Length; // Move cursor to end
+            currentInputBox.SelectionStart = currentInputBox.Text.Length; 
         }
 
 
@@ -174,14 +164,14 @@ namespace ATMSimulator_1
                 case Keys.D7: case Keys.NumPad7: targetButton = button7; break;
                 case Keys.D8: case Keys.NumPad8: targetButton = button8; break;
                 case Keys.D9: case Keys.NumPad9: targetButton = button9; break;
-                case Keys.Back: buttonBackspace.PerformClick(); break; // Simulate backspace button click
-                case Keys.Enter: CheckButton.PerformClick(); break; // Simulate Enter/Check button click
+                case Keys.Back: buttonBackspace.PerformClick(); break; 
+                case Keys.Enter: CheckButton.PerformClick(); break; 
             }
             targetButton?.PerformClick();
             if (targetButton != null || e.KeyCode == Keys.Back || e.KeyCode == Keys.Enter)
             {
-                e.Handled = true; // Mark as handled to prevent further processing
-                e.SuppressKeyPress = true; // Suppress the beep sound
+                e.Handled = true; 
+                e.SuppressKeyPress = true; 
             }
         }
 
@@ -199,7 +189,7 @@ namespace ATMSimulator_1
                     case AtmMode.Withdraw: HandleWithdrawal(); break;
                     case AtmMode.TransferAmount: HandleTransferAmountEntry(); break;
                     case AtmMode.TransferReceiver: HandleTransferReceiverEntry(); break;
-                    // History mode doesn't use CheckButton, it's display-only
+                    
                 }
             }
         }
@@ -263,8 +253,6 @@ namespace ATMSimulator_1
             try
             {
                 conn.Open();
-                // WARNING: Storing and comparing passwords in plain text is highly insecure.
-                // In a real application, use salted hashing (e.g., Argon2, Scrypt, PBKDF2).
                 string query = "SELECT [Password] FROM Clients WHERE [Client No] = ?";
                 OleDbCommand cmd = new OleDbCommand(query, conn);
                 cmd.Parameters.AddWithValue("?", currentAccount);
@@ -298,7 +286,7 @@ namespace ATMSimulator_1
         private void HandleAddNewUser()
         {
             string newUser = textBoxUsername.Text.Trim();
-            string newPass = textBoxPassword.Text.Trim(); // This is the password field, reused.
+            string newPass = textBoxPassword.Text.Trim(); 
 
 
             if (string.IsNullOrEmpty(newUser) || string.IsNullOrEmpty(newPass))
@@ -306,12 +294,12 @@ namespace ATMSimulator_1
                 MessageBox.Show("Please enter both account number and password for the new user.");
                 return;
             }
-            if (newUser.Length > 10) // Example validation
+            if (newUser.Length > 10) 
             {
                 MessageBox.Show("Account number cannot exceed 10 characters.");
                 return;
             }
-            if (newPass.Length < 4) // Example validation
+            if (newPass.Length < 4) 
             {
                 MessageBox.Show("Password must be at least 4 characters long.");
                 return;
@@ -332,8 +320,6 @@ namespace ATMSimulator_1
                     return;
                 }
 
-
-                // WARNING: Storing passwords in plain text is highly insecure.
                 string insertQuery = "INSERT INTO Clients ([Client No], Funds, [Daily Limit], [Password]) VALUES (?, ?, ?, ?)";
                 OleDbCommand insertCmd = new OleDbCommand(insertQuery, conn);
                 insertCmd.Parameters.AddWithValue("?", newUser);
@@ -365,7 +351,7 @@ namespace ATMSimulator_1
                 MessageBox.Show("Please enter a valid positive deposit amount.");
                 return;
             }
-            if (amountToDeposit > 10000) // Example deposit limit per transaction
+            if (amountToDeposit > 10000) 
             {
                 MessageBox.Show("Deposit limit per transaction is $10,000.");
                 return;
@@ -411,23 +397,18 @@ namespace ATMSimulator_1
                 MessageBox.Show("Please enter a valid positive withdrawal amount.");
                 return;
             }
-            if (amountToWithdraw % 10 != 0) // ATMs often dispense in multiples of 10 or 20
+            if (amountToWithdraw % 10 != 0) 
             {
                 MessageBox.Show("Withdrawal amount must be in multiples of $10.");
                 return;
             }
             // Simplified: Using DailyLimit as per-transaction withdrawal cap
-            if (amountToWithdraw > currentAccountDailyLimit && currentAccountDailyLimit > 0) // Only apply if limit is set
+            if (amountToWithdraw > currentAccountDailyLimit && currentAccountDailyLimit > 0) 
             {
                 MessageBox.Show($"Withdrawal amount exceeds your per-transaction limit of ${currentAccountDailyLimit:C2}.");
                 return;
             }
-            // For true daily limit:
-            // You'd need to fetch sum of withdrawals for currentAccount for today from Transactions table
-            // and check if (sum + amountToWithdraw) > currentAccountDailyLimit.
-            // Also need to update a LastWithdrawalDate and AmountWithdrawnToday in Clients table.
-
-
+           
             try
             {
                 conn.Open();
@@ -491,7 +472,6 @@ namespace ATMSimulator_1
                     MessageBox.Show("Insufficient funds for this transfer.");
                     return;
                 }
-                // Amount is valid, proceed to ask for receiver account
                 currentMode = AtmMode.TransferReceiver;
                 UpdateUIAfterTransferAmountEntered();
             }
@@ -533,8 +513,6 @@ namespace ATMSimulator_1
                 conn.Open();
                 transaction = conn.BeginTransaction(); // Use a transaction for atomicity
 
-
-                // Check if receiver account exists and get their funds
                 string receiverQuery = "SELECT Funds FROM Clients WHERE [Client No] = ?";
                 OleDbCommand receiverCmd = new OleDbCommand(receiverQuery, conn, transaction);
                 receiverCmd.Parameters.AddWithValue("?", receiverAccount);
@@ -550,7 +528,6 @@ namespace ATMSimulator_1
                 decimal receiverFunds = Convert.ToDecimal(receiverFundsObj);
 
 
-                // Get sender's current funds (again, within transaction for consistency)
                 string senderQuery = "SELECT Funds FROM Clients WHERE [Client No] = ?";
                 OleDbCommand senderCmd = new OleDbCommand(senderQuery, conn, transaction);
                 senderCmd.Parameters.AddWithValue("?", currentAccount);
@@ -565,7 +542,6 @@ namespace ATMSimulator_1
                 }
 
 
-                // Perform updates
                 decimal newSenderFunds = senderFunds - amountToTransfer;
                 decimal newReceiverFunds = receiverFunds + amountToTransfer;
 
@@ -621,7 +597,6 @@ namespace ATMSimulator_1
             }
             catch (Exception ex)
             {
-                // Log to a file or display a non-critical error
                 Console.WriteLine($"Failed to log transaction: {ex.Message}");
                 // MessageBox.Show("Warning: Could not record transaction to history. " + ex.Message);
             }
@@ -707,20 +682,19 @@ namespace ATMSimulator_1
             textBoxPassword.Focus();
 
 
-            addButton.Enabled = false; // Disable add user during password entry
+            addButton.Enabled = false; 
         }
 
 
         private void ShowPostLoginOptions()
         {
-            isAuthenticated = true; // Ensure this is set
-            currentMode = AtmMode.None; // Back to main menu
+            isAuthenticated = true; 
+            currentMode = AtmMode.None; 
             isWaitingForPassword = false;
             isWaitingToAddNewUser = false;
-            currentInputBox = null; // No direct input field active at main menu
+            currentInputBox = null; 
 
 
-            // Clear any operation-specific fields
             textBoxPassword.Clear();
             textBoxDeposit.Clear();
             textBoxWithdrawAmount.Clear();
@@ -799,17 +773,16 @@ namespace ATMSimulator_1
             textBoxDeposit.Focus();
 
 
-            CheckButton.Enabled = true; // Enable "Enter" to confirm deposit
-            // Back/Cancel button should take back to ShowPostLoginOptions
+            CheckButton.Enabled = true; 
         }
         private void ShowWithdrawUI()
         {
             currentMode = AtmMode.Withdraw;
             HideAllActionButtonsAndSpecificUI();
-            labelBalance.Visible = true; // Keep balance visible
+            labelBalance.Visible = true; 
 
 
-            labelWithdrawAmount.Visible = true; // Make sure these exist
+            labelWithdrawAmount.Visible = true; 
             textBoxWithdrawAmount.Visible = true;
             textBoxWithdrawAmount.Clear();
             currentInputBox = textBoxWithdrawAmount;
@@ -824,10 +797,10 @@ namespace ATMSimulator_1
         {
             currentMode = AtmMode.TransferAmount;
             HideAllActionButtonsAndSpecificUI();
-            labelBalance.Visible = true; // Keep balance visible
+            labelBalance.Visible = true; 
 
 
-            howMuchLabel.Text = "Enter Amount to Transfer:"; // Reuse 'howMuchLabel'
+            howMuchLabel.Text = "Enter Amount to Transfer:"; 
             howMuchLabel.Visible = true;
             textBoxTransferAmount.Visible = true;
             textBoxTransferAmount.Clear();
@@ -841,16 +814,13 @@ namespace ATMSimulator_1
 
         private void UpdateUIAfterTransferAmountEntered()
         {
-            // currentMode is already AtmMode.TransferReceiver
             HideAllActionButtonsAndSpecificUI();
             labelBalance.Visible = true; // Keep balance visible
 
 
-            // Keep transfer amount visible but not editable
-            howMuchLabel.Text = $"Amount: {textBoxTransferAmount.Text}"; // Display confirmed amount
+            howMuchLabel.Text = $"Amount: {textBoxTransferAmount.Text}"; 
             howMuchLabel.Visible = true;
-            textBoxTransferAmount.Visible = false; // Hide input box for amount
-
+            textBoxTransferAmount.Visible = false; 
 
             labelReceiverAccount.Visible = true;
             textBoxReceiverAccount.Visible = true;
@@ -869,18 +839,17 @@ namespace ATMSimulator_1
         {
             currentMode = AtmMode.History;
             HideAllActionButtonsAndSpecificUI();
-            labelBalance.Visible = true; // Keep balance visible
+            labelBalance.Visible = true; 
 
 
-            listBoxHistory.Visible = true; // Make sure this exists
+            listBoxHistory.Visible = true; 
             listBoxHistory.Items.Clear();
-            CheckButton.Enabled = false; // No "Enter" for history view
+            CheckButton.Enabled = false; 
 
 
             try
             {
                 conn.Open();
-                // Display last 10-15 transactions for example
                 string query = "SELECT TOP 15 TransactionDate, TransactionType, Amount, Notes FROM Transactions WHERE ClientNo = ? ORDER BY TransactionDate DESC";
                 OleDbCommand cmd = new OleDbCommand(query, conn);
                 cmd.Parameters.AddWithValue("?", currentAccount);
@@ -914,7 +883,6 @@ namespace ATMSimulator_1
             {
                 if (conn.State == ConnectionState.Open) conn.Close();
             }
-            // Back/Cancel button should take back to ShowPostLoginOptions
         }
         private void ShowAddNewUserUI()
         {
@@ -922,13 +890,13 @@ namespace ATMSimulator_1
             isAuthenticated = false;
             isWaitingForPassword = false;
             currentMode = AtmMode.None;
-            currentInputBox = textBoxUsername; // Start with username for new user
+            currentInputBox = textBoxUsername; 
 
 
             // Clear relevant fields
             textBox1.Clear();
             textBoxUsername.Clear();
-            textBoxPassword.Clear(); // This will be used for the new user's password
+            textBoxPassword.Clear(); 
 
 
             // --- Visibility: Add New User Screen ---
@@ -958,14 +926,13 @@ namespace ATMSimulator_1
 
 
             // --- Button States: Add New User Screen ---
-            CheckButton.Enabled = true; // "Enter" to confirm new user
-            addButton.Enabled = false; // Disable while in add user mode
+            CheckButton.Enabled = true; 
+            addButton.Enabled = false; 
             buttonDeposit.Visible = false;
             buttonWithdraw.Visible = false;
             buttonTransfer.Visible = false;
             buttonHistory.Visible = false;
-            buttonLogout.Visible = true; // Or use Cancel to go back
-
+            buttonLogout.Visible = true; 
 
             textBoxUsername.Focus();
         }
@@ -978,7 +945,7 @@ namespace ATMSimulator_1
             buttonWithdraw.Visible = false;
             buttonTransfer.Visible = false;
             buttonHistory.Visible = false;
-            buttonLogout.Visible = true; // Logout/Cancel should always be an option
+            buttonLogout.Visible = true; 
 
 
             // Hide all specific input areas
@@ -987,16 +954,12 @@ namespace ATMSimulator_1
             howMuchLabel.Visible = false; textBoxTransferAmount.Visible = false;
             labelReceiverAccount.Visible = false; textBoxReceiverAccount.Visible = false;
             listBoxHistory.Visible = false;
-            // labelBalance can be kept visible if desired during operations
+            
 
-
-            CheckButton.Enabled = false; // Disable check button by default, enable if needed by mode
+            CheckButton.Enabled = false; 
         }
 
 
-
-
-        // --- Button Event Handlers ---
         private void buttonBackspace_Click(object sender, EventArgs e)
         {
             if (currentInputBox != null && currentInputBox.Text.Length > 0)
@@ -1007,34 +970,33 @@ namespace ATMSimulator_1
         }
 
 
-        private void cancelButton_Click(object sender, EventArgs e) // General Cancel / Back button
+        private void cancelButton_Click(object sender, EventArgs e) 
         {
             if (isAuthenticated)
             {
-                // If in an operation, go back to main menu, otherwise logout
                 if (currentMode != AtmMode.None)
                 {
-                    ShowPostLoginOptions(); // Go back to main authenticated menu
+                    ShowPostLoginOptions(); 
                 }
-                else // Already at main menu, so treat as logout
+                else 
                 {
                     HandleLogout();
                 }
             }
             else if (isWaitingToAddNewUser || isWaitingForPassword)
             {
-                ResetToInitialState(); // Go back to initial account entry screen
+                ResetToInitialState(); 
             }
-            else // At initial account entry screen
+            else 
             {
-                textBox1.Clear(); // Just clear the current input
+                textBox1.Clear(); 
                 currentInputBox = textBox1;
                 textBox1.Focus();
             }
         }
 
 
-        private void addAccount_Click(object sender, EventArgs e) // "Add New User" button
+        private void addAccount_Click(object sender, EventArgs e) 
         {
             ShowAddNewUserUI();
         }
@@ -1046,7 +1008,7 @@ namespace ATMSimulator_1
         }
 
 
-        private void buttonWithdraw_Click(object sender, EventArgs e) // Ensure this button exists
+        private void buttonWithdraw_Click(object sender, EventArgs e) 
         {
             ShowWithdrawUI();
         }
@@ -1058,11 +1020,11 @@ namespace ATMSimulator_1
         }
 
 
-        private void buttonHistory_Click(object sender, EventArgs e) // Ensure this button exists
+        private void buttonHistory_Click(object sender, EventArgs e) 
         {
             ShowHistoryUI();
         }
-        private void buttonLogout_Click(object sender, EventArgs e) // Ensure this button exists
+        private void buttonLogout_Click(object sender, EventArgs e) 
         {
             HandleLogout();
         }

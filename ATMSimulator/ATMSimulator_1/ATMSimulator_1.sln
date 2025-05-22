@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATMSimulator_1", "ATMSimulator_1\ATMSimulator_1.csproj", "{A262FBE9-700F-4F1B-86DE-45831FF6FAFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A262FBE9-700F-4F1B-86DE-45831FF6FAFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A262FBE9-700F-4F1B-86DE-45831FF6FAFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A262FBE9-700F-4F1B-86DE-45831FF6FAFC}.Debug|x64.ActiveCfg = Debug|x64
+		{A262FBE9-700F-4F1B-86DE-45831FF6FAFC}.Debug|x64.Build.0 = Debug|x64
+		{A262FBE9-700F-4F1B-86DE-45831FF6FAFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A262FBE9-700F-4F1B-86DE-45831FF6FAFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A262FBE9-700F-4F1B-86DE-45831FF6FAFC}.Release|x64.ActiveCfg = Release|x64
+		{A262FBE9-700F-4F1B-86DE-45831FF6FAFC}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
